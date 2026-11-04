@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>悉尼落地指南 · Kai @ MQ 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gold: #FFD700;
+  --gold-dim: #E8A317;
+  --bg-dark: #05050f;
+  --bg-card: rgba(10,10,30,0.6);
+  --text: #e8e0d0;
+  --text-dim: rgba(232,224,208,0.5);
+  --must: #e87060;
+  --rec: #6ddba0;
+  --verified: #4ecdc4;
+  --unverified: #f0a500;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:65px}
+body{background:var(--bg-dark);color:var(--text);font-family:'Noto Serif SC','PingFang SC',serif;line-height:1.8;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(255,215,0,0.03) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(232,163,23,0.02) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,#05050f 0%,#020208 100%);z-index:-1;pointer-events:none}
+
+#topNav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(5,5,15,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,215,0,0.1);z-index:999;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 20px}
+#topNav a{color:var(--text-dim);text-decoration:none;font-size:11px;letter-spacing:1.5px;padding:6px 12px;transition:all 0.2s;white-space:nowrap;font-family:Inter,sans-serif;font-weight:500}
+#topNav a:hover,#topNav a.active{color:var(--gold);background:rgba(255,215,0,0.06);border-radius:4px}
+#topNav .brand{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:3px;margin-right:12px}
+
+.hero{text-align:center;padding:100px 24px 50px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 50% 40%,rgba(255,215,0,0.06) 0%,transparent 50%);animation:heroPulse 6s ease-in-out infinite;pointer-events:none}
+@keyframes heroPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.05);opacity:1}}
+.hero .badge{display:inline-block;font-size:10px;letter-spacing:4px;color:var(--gold);border:1px solid rgba(255,215,0,.2);padding:4px 16px;border-radius:20px;margin-bottom:16px;font-family:Inter,sans-serif}
+.hero h1{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.2;background:linear-gradient(135deg,#FFD700,#E8A317,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.hero .sub{font-size:clamp(.9rem,2vw,1.1rem);color:var(--text-dim);line-height:1.6;max-width:600px;margin:0 auto}
+.hero .author{font-size:.75rem;color:var(--text-dim);letter-spacing:1px;margin-top:4px;font-family:Inter,sans-serif}
+
+.container{max-width:780px;margin:0 auto;padding:0 20px 60px}
+
+.section{margin:36px 0}
+.section h2{font-size:1.3rem;color:var(--gold);padding-bottom:10px;border-bottom:1px solid rgba(255,215,0,.15);margin-bottom:16px;letter-spacing:2px;font-weight:700}
+.section h3{font-size:1.05rem;color:#f0e8d0;margin:18px 0 8px;font-weight:600}
+
+/* Timeline */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),rgba(255,215,0,0.1))}
+.timeline-item{position:relative;margin:18px 0;padding:14px 18px;background:var(--bg-card);border:1px solid rgba(255,215,0,.08);border-radius:10px;transition:all .3s}
+.timeline-item:hover{border-color:rgba(255,215,0,.2)}
+.timeline-item::before{content:'';position:absolute;left:-24px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--bg-dark)}
+.timeline-item.must::before{background:var(--must)}
+.timeline-item.rec::before{background:var(--rec)}
+.timeline-item .tl-time{font-size:.72rem;color:var(--gold-dim);font-weight:600;font-family:Inter,sans-serif;letter-spacing:1px;margin-bottom:2px}
+.timeline-item .tl-title{font-size:1rem;font-weight:700;margin-bottom:4px}
+.timeline-item .tl-title.must{color:var(--must)}
+.timeline-item .tl-title.rec{color:var(--rec)}
+.timeline-item .tl-body{font-size:.82rem;color:rgba(232,224,208,.7);line-height:1.6}
+
+.card{background:var(--bg-card);border:1px solid rgba(255,215,0,.08);border-radius:12px;padding:16px 20px;margin:10px 0}
+
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.82rem}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid rgba(255,215,0,.06)}
+th{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);font-weight:600;font-family:Inter,sans-serif}
+tr:hover td{background:rgba(255,215,0,.02)}
+
+.badge-src{display:inline-block;padding:1px 6px;border-radius:3px;font-size:.65rem;font-weight:600;font-family:Inter,sans-serif;margin-left:4px}
+.badge-src.verified{background:rgba(78,205,196,.15);color:var(--verified)}
+.badge-src.unverified{background:rgba(240,165,0,.15);color:var(--unverified)}
+.badge-src.ai{background:rgba(255,215,0,.1);color:var(--gold-dim)}
+
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#05050f;font-size:.75rem;font-weight:700;margin-right:8px;font-family:Inter,sans-serif}
+
+/* Source footer */
+.src-footer{margin-top:12px;padding:10px 14px;background:rgba(255,215,0,.03);border-radius:8px;font-size:.72rem;color:var(--text-dim);line-height:1.7}
+
+.footer{text-align:center;padding:40px 20px;color:rgba(232,224,208,.2);font-size:.72rem;border-top:1px solid rgba(255,215,0,.05);margin-top:48px;line-height:1.8}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg-dark)}
+::-webkit-scrollbar-thumb{background:rgba(255,215,0,.15);border-radius:3px}
+
+@media(max-width:700px){
+  .timeline{padding-left:20px}
+  .timeline-item::before{left:-17px;width:10px;height:10px}
+  #topNav{gap:4px;padding:0 8px}
+  #topNav a{font-size:9px;padding:4px 6px}
+  #topNav .brand{font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<nav id="topNav">
+  <span class="brand">✦ 落地指南</span>
+  <a href="#timeline">📅 时间线</a>
+  <a href="#phone">📱 手机卡</a>
+  <a href="#bank">🏦 银行卡</a>
+  <a href="#tfn">📄 TFN</a>
+  <a href="#mq">🎓 MQ</a>
+  <a href="#source">📊 来源</a>
+</nav>
+
+<div class="hero">
+  <div class="badge">SYDNEY · MACQUARIE UNIVERSITY · 2026</div>
+  <h1>落地悉尼<br>必办指南</h1>
+  <div class="sub">
+    从手机卡到学生证，从银行卡到TFN<br>
+    按顺序走，不慌不忙
+  </div>
+  <div class="author">本指南由 Kai (郑佳骐) 整理 · Bachelor of Economics</div>
+</div>
+
+<div class="container">
+
+<!-- ===== VERIFICATION LEGEND ===== -->
+<div class="section">
+  <h2>图例</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:.78rem;">
+    <span><span class="badge-src verified">✅ 已验证</span> 小红书真实帖子验证</span>
+    <span><span class="badge-src unverified">❓ 待确认</span> 需你自行核实</span>
+    <span><span class="badge-src ai">🤖 AI</span> 基于AI训练数据</span>
+  </div>
+</div>
+
+<!-- ===== TIMELINE ===== -->
+<div class="section" id="timeline">
+  <h2>📅 落地流程建议</h2>
+  <p style="font-size:.82rem;color:var(--text-dim);margin-bottom:16px;">以下为建议顺序，具体可灵活调整，不用严格对应每一天</p>
+
+  <div class="timeline">
+
+    <!-- 第1天 -->
+    <div class="timeline-item must">
+      <div class="tl-time">第1天 · 到达日</div>
+      <div class="tl-title must">🛬 出机场 → 🛒 手机卡 → 🚇 Opal卡 → 🏠 入住</div>
+      <div class="tl-body">
+        <p><strong>① 买 SIM 卡</strong><br>
+        到达大厅有 <strong>Optus</strong> 门店或去 <strong>Coles</strong> 买 $35 月卡，护照即可。<span class="badge-src verified">✅ 小红书992赞</span></p>
+        <p><strong>② 买 Opal 交通卡</strong><br>
+        机场便利店买，充 $20-40，坐火车去 Macquarie Park / Epping。<span class="badge-src verified">✅ 小红书253赞</span></p>
+        <p><strong>③ 放行李到 SVNR</strong>（122 Culloden Rd, Marsfield）<br>
+        次日正式 check-in，今晚先落脚。</p>
+      </div>
+    </div>
+
+    <!-- 第2天 -->
+    <div class="timeline-item must">
+      <div class="tl-time">第2天</div>
+      <div class="tl-title must">🏦 银行卡 → 📄 TFN → 🛍️ 采购日用品</div>
+      <div class="tl-body">
+        <p><strong>优先办：银行卡</strong><br>
+        Commonwealth Bank @ Macquarie Centre 2楼<br>
+        带：护照 + 签证信 + SVNR地址 + 手机号<span class="badge-src verified">✅ 小红书验证</span></p>
+        <p><strong>线上申请：TFN</strong><br>
+        ato.gov.au — 10分钟免费，用SVNR地址<span class="badge-src unverified">❓ 收到需约2-4周</span></p>
+        <p><strong>顺便去 Coles/Woolies 买床品、日用品</strong></p>
+      </div>
+    </div>
+
+    <!-- 第3天 -->
+    <div class="timeline-item must">
+      <div class="tl-time">第3天</div>
+      <div class="tl-title must">🎓 MQ 校内：学生证 → USI → OSHC → iLearn</div>
+      <div class="tl-body">
+        <p><strong>Student Connect 领学生证</strong><br>
+        提前在 eStudent 上传照片（现场拍很丑）<span class="badge-src verified">✅ 小红书共识</span></p>
+        <p><strong>在线搞定</strong>：USI号（usi.gov.au）→ OSHC激活 → iLearn模块</p>
+        <p><strong>📱 顺便换 Coles Mobile 年卡</strong>（$155-195/年 ≈ $13/月）<span class="badge-src verified">✅ 小红书992赞</span></p>
+      </div>
+    </div>
+
+    <!-- 第4-6天 -->
+    <div class="timeline-item rec">
+      <div class="tl-time">第4-6天</div>
+      <div class="tl-title rec">🧘 熟悉环境 + 扫尾</div>
+      <div class="tl-body">
+        <p>熟悉 Macquarie Centre、Eastwood（最近的华人区）、Chatswood（北区华人中心）<br>
+        确认 iLearn 和 eStudent 选课<br>
+        收银行卡邮件通知、等 TFN 寄到<br>
+        去 Kmart / Target 补生活用品</p>
+      </div>
+    </div>
+
+    <!-- 第7天+ -->
+    <div class="timeline-item rec">
+      <div class="tl-time">第7天+</div>
+      <div class="tl-title rec">🎉 Kickstart Week（迎新周）</div>
+      <div class="tl-body">
+        <p>迎新周开始！日程指南 👉 <a href="../kickstart-guide/" style="color:var(--gold);">mq-kickstart-guide</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PHONE ===== -->
+<div class="section" id="phone">
+  <h2>📱 手机卡详解</h2>
+
+  <table>
+    <tr><th>方案</th><th>价格</th><th>流量</th><th>适合</th><th>来源</th></tr>
+    <tr>
+      <td><strong>Optus 月卡</strong></td>
+      <td>$35/28天</td>
+      <td>40GB</td>
+      <td>落地过渡，拿护照就能买</td>
+      <td><span class="badge-src verified">✅</span></td>
+    </tr>
+    <tr>
+      <td><strong>Coles Mobile 年卡</strong></td>
+      <td>$155/年（≈$13/月）</td>
+      <td>**140GB/年**（一年总量，非每月）</td>
+      <td>长期省钱方案，365天有效</td>
+      <td><span class="badge-src verified">✅</span></td>
+    </tr>
+    <tr>
+      <td>Vodafone</td>
+      <td>$20-30/月</td>
+      <td>30-60GB</td>
+      <td>最便宜但信号差</td>
+      <td><span class="badge-src verified">✅</span></td>
+    </tr>
+    <tr>
+      <td>Telstra</td>
+      <td>$35-50/月</td>
+      <td>25-50GB</td>
+      <td>信号最好最贵</td>
+      <td><span class="badge-src verified">✅</span></td>
+    </tr>
+  </table>
+
+  <div class="card">
+    <p><strong>✅ 推荐策略：</strong><br>
+    落地买 <strong>Optus $35 月卡</strong>过渡 → 安顿好后换 <strong>Coles Mobile 年卡</strong>（$155/年，140GB一年总量，≈$13/月，Optus网络信号一样好）</p>
+  </div>
+</div>
+
+<!-- ===== BANK ===== -->
+<div class="section" id="bank">
+  <h2>🏦 银行卡详解</h2>
+
+  <table>
+    <tr><th>银行</th><th>学生月费</th><th>优势</th><th>来源</th></tr>
+    <tr><td><strong>Commonwealth</strong></td><td>❓ 待确认</td><td>ATM最多，Macquarie Centre有分行</td><td><span class="badge-src verified">✅ 第一站选它</span></td></tr>
+    <tr><td>中国银行（澳洲）</td><td>❓ 待确认</td><td>国内中行→国外中行 转账0手续费</td><td><span class="badge-src verified">✅ 技巧已验证</span></td></tr>
+    <tr><td>ANZ / NAB</td><td><span class="badge-src ai">🤖 AI</span></td><td>备选</td><td><span class="badge-src ai">🤖 未验证</span></td></tr>
+  </table>
+
+  <div class="card">
+    <p><strong>✅ 小红书推荐的技巧：</strong><br>
+    国内中国银行 → 澳洲中国银行 → 转到 CommBank<br>
+    这样房租基本可以做到 <strong>0 手续费</strong><span class="badge-src verified">✅ 小红书253赞</span></p>
+  </div>
+</div>
+
+<!-- ===== TFN ===== -->
+<div class="section" id="tfn">
+  <h2>📄 TFN 税号（打工必需）</h2>
+
+  <div class="card">
+    <p><strong>澳洲打工必须申请 TFN</strong>，否则雇主扣 45% 税。</p>
+    <table>
+      <tr><th>项目</th><th>内容</th></tr>
+      <tr><td>在哪申请</td><td>ato.gov.au 在线填表</td></tr>
+      <tr><td>费用</td><td>免费</td></tr>
+      <tr><td>需要什么</td><td>护照 + 签证号 + SVNR地址</td></tr>
+      <tr><td>等待时间</td><td><span class="badge-src unverified">❓ 小红书说法不一</span><br>有人说28天，有人说不用等那么久</td></tr>
+      <tr><td>后续</td><td>收到后要 link 到银行账户，不然利息被扣45%</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MQ ===== -->
+<div class="section" id="mq">
+  <h2>🎓 MQ 专属事项</h2>
+
+  <div class="card">
+    <p><strong>从成都到 MQ 的特别经验</strong><span class="badge-src verified">✅ 小红书MQ学长姐</span></p>
+    <p style="margin-top:6px;font-size:.85rem;">
+    • 中高计划（SEP 2+2）有老师接机 + 行前会<br>
+    • MQ 提供 <strong>免费接机服务</strong>，需提前在官网预约<span class="badge-src verified">✅ 小红书多篇攻略</span><br>
+    • SVNR <strong>不用带洗澡过滤器</strong>（固定花洒，不能换）<span class="badge-src verified">✅ 已验证</span><br>
+    • 建议 <strong>周四落地悉尼</strong>（商场营业到很晚）<span class="badge-src verified">✅ 已验证</span><br>
+    • 可预约 <strong>Chatswood 中国银行</strong>（交通方便，适合刚落地）<span class="badge-src verified">✅ 已验证</span>
+    </p>
+  </div>
+
+  <table>
+    <tr><th>事项</th><th>时间</th><th>地点</th><th>说明</th></tr>
+    <tr><td>学生证</td><td>周一至五 9-5</td><td>Student Connect</td><td>提前上传照片！<span class="badge-src verified">✅</span></td></tr>
+    <tr><td>iLearn 模块</td><td>开学前完成</td><td>ilearn.mq.edu.au</td><td>Academic Integrity + Safer Communities</td></tr>
+    <tr><td>Kickstart 注册</td><td>已开放</td><td>线上</td><td><a href="../kickstart-guide/" style="color:var(--gold);">日程指南</a></td></tr>
+    <tr><td>免费接机</td><td>需提前预约</td><td>MQ官网</td><td><span class="badge-src verified">✅ 小红书验证</span></td></tr>
+  </table>
+</div>
+
+<!-- ===== CHINA PRICE TIPS ===== -->
+<div class="section" id="tips">
+  <h2>💡 行前可以准备</h2>
+  <div class="card">
+    <table>
+      <tr><th>带什么</th><th>理由</th><th>来源</th></tr>
+      <tr><td>转换插头 + 插排</td><td>澳洲三孔插座，国内两孔不能用</td><td>常识</td></tr>
+      <tr><td>充电宝</td><td>澳洲买比国内贵2-3倍</td><td>常识</td></tr>
+      <tr><td>手机壳/贴膜/数据线</td><td>澳洲又贵又丑</td><td>常识</td></tr>
+      <tr><td>框架眼镜/隐形眼镜</td><td>澳洲配镜贵且需要处方</td><td><span class="badge-src ai">🤖</span></td></tr>
+      <tr><td>常用药（感冒/肠胃/过敏）</td><td>澳洲买药麻烦且贵，注意含伪麻黄碱的不能带</td><td><span class="badge-src ai">🤖</span></td></tr>
+      <tr><td>❌ 不用带：洗澡过滤器</td><td>SVNR 固定花洒，换不了</td><td><span class="badge-src verified">✅ 小红书MQ学生</span></td></tr>
+      <tr><td>❌ 不用带：太多衣服</td><td>7月悉尼冬季，但带够换洗的，剩下当地买</td><td><span class="badge-src ai">🤖</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== SOURCES ===== -->
+<div class="section" id="source">
+  <h2>📊 数据来源</h2>
+
+  <div class="src-footer">
+    ✅ <strong>已验证</strong> — 来源于小红书真实留学生帖子：<br>
+    · 《澳洲留学电话卡｜落地亲测的省钱大法💥》992赞 — 作者 KY.<br>
+    · 《澳洲留学就办 3 张卡（无废话版）》253赞 — 作者 悉尼中英翻译Julie<br>
+    · 《从成都到悉尼：我的 MQ 落地避坑清单📋》— MQ学生 APM重度依赖ing<br>
+    · 《普及一下，澳洲26s2落地week1该办的7张卡》130赞 — 作者 Lumist小语<br>
+    · 《澳洲留学生银行卡攻略！落地前必看》68赞 — 作者 Au繁华睡不着<br>
+    · 《麦考瑞大学FREE接机全攻略》— 多个帖子验证<br><br>
+
+    ❓ <strong>待确认/🤖 AI数据</strong> — 未从小红书实时验证，请以实际情况为准：<br>
+    · CommBank 学生账户月费<br>
+    · TFN 具体等待时长<br>
+    · Student Connect 具体位置<br>
+    · Opal 国际学生优惠资格<br><br>
+
+    🔍 所有信息基于 <strong>2026年7月10日</strong> 的搜索结果，价格可能变动
+  </div>
+</div>
+
+<div class="footer">
+  <p>✦ Macquarie University · Sydney Arrival Guide ✦</p>
+  <p>本指南由 Kai (郑佳骐) 整理 · Bachelor of Economics</p>
+  <p style="margin-top:4px;">
+    数据来源：小红书 ⭐ · MQ官网 · ATO官网 · Transport NSW<br>
+    每条信息标注 ✅已验证 / ❓待确认 / 🤖AI数据 以体现真实性<br>
+    生成日期：2026年7月10日
+  </p>
+  <p style="margin-top:8px;color:var(--gold);font-size:.78rem;">
+    🏀 Mamba Never Out · 悉尼等你！
+  </p>
+</div>
+
+</div>
+
+<script>
+(function(){if(typeof IntersectionObserver==='undefined')return;
+const els=document.querySelectorAll('.timeline-item,.card');
+els.forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .6s ease,transform .6s ease'});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';obs.unobserve(e.target)}})},{threshold:.06});
+els.forEach(el=>obs.observe(el));
+setTimeout(()=>{els.forEach(el=>{el.style.opacity='1';el.style.transform='translateY(0)'})},5000);})();
+</script>
+
+</body>
+</html>

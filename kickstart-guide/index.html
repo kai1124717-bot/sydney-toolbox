@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MQ Kickstart Week 2026 · 完整指南</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gold: #FFD700;
+  --gold-dim: #E8A317;
+  --bg-dark: #05050f;
+  --bg-card: rgba(10,10,30,0.6);
+  --text: #e8e0d0;
+  --text-dim: rgba(232,224,208,0.5);
+  --mq-blue: #00afca;
+  --mq-orange: #E8751A;
+  --must: #c0392b;
+  --rec: #27ae60;
+  --opt: #888;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: 'Noto Serif SC', 'PingFang SC', serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(255,215,0,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(232,163,23,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, #05050f 0%, #020208 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ===== NAV ===== */
+#topNav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 56px;
+  background: rgba(5,5,15,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 0 20px;
+}
+
+#topNav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 6px 12px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+}
+
+#topNav a:hover, #topNav a.active {
+  color: var(--gold);
+  background: rgba(255,215,0,0.06);
+  border-radius: 4px;
+}
+
+#topNav .brand {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  margin-right: 12px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align: center;
+  padding: 100px 24px 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: 
+    radial-gradient(circle at 50% 40%, rgba(255,215,0,0.06) 0%, transparent 50%);
+  animation: heroPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes heroPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+.hero .badge {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  border: 1px solid rgba(255,215,0,0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  font-family: Inter, sans-serif;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #FFD700, #E8A317, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.hero .sub {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin: 40px 0;
+}
+
+.section h2 {
+  font-size: 1.4rem;
+  color: var(--gold);
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,215,0,0.15);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.section h3 {
+  font-size: 1.05rem;
+  color: #f0e8d0;
+  margin: 20px 0 10px;
+  font-weight: 600;
+}
+
+.section h4 {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 14px 0 6px;
+  font-weight: 600;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,215,0,0.08);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 10px 0;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(255,215,0,0.2);
+  background: rgba(10,10,30,0.8);
+}
+
+/* ===== DAY HEADER ===== */
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 32px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(255,215,0,0.12);
+}
+
+.day-header .date {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.day-header .tag {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  font-family: Inter, sans-serif;
+}
+
+/* ===== SESSION ===== */
+.session {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 4px 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.session:last-child { border-bottom: none; }
+
+.session .time {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  font-family: Inter, sans-serif;
+  padding-top: 2px;
+}
+
+.session .info { min-width: 0; }
+
+.session .name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f0e8d0;
+  line-height: 1.4;
+}
+
+.session .name .tag-icon { margin-right: 4px; }
+
+.session .name.must { color: #e87060; }
+.session .name.rec { color: #6ddba0; }
+
+.session .desc-en {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-top: 2px;
+  font-family: Inter, sans-serif;
+}
+
+.session .desc-cn {
+  font-size: 0.82rem;
+  color: rgba(232,224,208,0.65);
+  line-height: 1.6;
+  margin-top: 2px;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.85rem;
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,215,0,0.06);
+}
+
+th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  font-weight: 600;
+  font-family: Inter, sans-serif;
+}
+
+tr:hover td { background: rgba(255,215,0,0.02); }
+
+/* ===== STARS ===== */
+.stars { color: var(--gold); letter-spacing: 2px; }
+
+/* ===== REVIEW ===== */
+.review-item {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,215,0,0.08);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 10px 0;
+}
+
+.review-item h4 {
+  font-size: 0.95rem;
+  color: var(--gold);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.review-item .rating {
+  font-size: 0.82rem;
+  color: var(--gold-dim);
+  margin-bottom: 6px;
+  font-family: Inter, sans-serif;
+}
+
+.review-item ul {
+  list-style: none;
+  padding: 0;
+}
+
+.review-item li {
+  font-size: 0.82rem;
+  color: rgba(232,224,208,0.75);
+  line-height: 1.6;
+  padding: 2px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.review-item li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold-dim);
+  opacity: 0.5;
+}
+
+/* ===== TIPS ===== */
+.tip-card {
+  background: linear-gradient(135deg, rgba(255,215,0,0.04), rgba(232,163,23,0.02));
+  border: 1px solid rgba(255,215,0,0.1);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 8px 0;
+}
+
+.tip-card .tip-icon { font-size: 1.1rem; margin-right: 6px; }
+.tip-card .tip-title { font-weight: 700; color: var(--gold); font-size: 0.9rem; }
+.tip-card .tip-text { font-size: 0.82rem; color: rgba(232,224,208,0.7); margin-top: 3px; line-height: 1.6; }
+
+/* ===== REC TABLE ===== */
+.rec-table {
+  width: 100%;
+  margin: 14px 0;
+}
+
+.rec-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,215,0,0.04);
+  font-size: 0.85rem;
+  align-items: center;
+}
+
+.rec-row.header {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  font-family: Inter, sans-serif;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+}
+
+.rec-row .rec-prio { font-weight: 600; }
+.rec-row .rec-prio.must { color: #e87060; }
+.rec-row .rec-prio.rec { color: #6ddba0; }
+
+/* ===== REGISTER BOX ===== */
+.register-box {
+  background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(232,163,23,0.04));
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.register-box h3 {
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.register-box p {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.register-box .btn {
+  display: inline-block;
+  padding: 10px 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  color: #05050f;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-family: Inter, sans-serif;
+}
+
+.register-box .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255,215,0,0.3);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(232,224,208,0.2);
+  font-size: 0.72rem;
+  border-top: 1px solid rgba(255,215,0,0.05);
+  margin-top: 48px;
+  line-height: 1.8;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.15); border-radius: 3px; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  .session { grid-template-columns: 1fr; gap: 2px; }
+  .session .time { font-size: 0.72rem; }
+  #topNav { gap: 4px; padding: 0 8px; }
+  #topNav a { font-size: 9px; padding: 4px 6px; }
+  #topNav .brand { font-size: 10px; margin-right: 4px; }
+  .rec-row { grid-template-columns: 70px 1fr 90px; font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="topNav">
+  <span class="brand">✦ MQ Guide</span>
+  <a href="#schedule">📅 日程</a>
+  <a href="#research">📊 调研</a>
+  <a href="#tips">💡 建议</a>
+  <a href="#recommend">🎯 推荐</a>
+  <a href="#register">🔗 注册</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="badge">MACQUARIE UNIVERSITY · 2026</div>
+  <h1>Kickstart Week<br>完整指南</h1>
+  <div class="sub">
+    献给即将入读 Macquarie Business School<br>
+    Bachelor of Economics 的同学们<br>
+    <span style="color:var(--gold);font-size:0.85rem;font-family:Inter,sans-serif;">
+      20 – 28 July 2026
+    </span><br>
+    <span style="color:var(--text-dim);font-size:0.75rem;font-family:Inter,sans-serif;letter-spacing:1px;">
+      本指南由 Kai (郑佳骐) 整理 · Bachelor of Economics
+    </span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ===== REGISTER CTA ===== -->
+<div class="register-box" id="register">
+  <h3>🔗 立即注册 Kickstart</h3>
+  <p>Step 1: iLearn 上完成 2 个新生模块 · Step 2: 参加线下迎新活动</p>
+  <a class="btn" href="https://event.mq.edu.au/kickstart-session-2-2026/registration/Site/Register" target="_blank">前往注册 →</a>
+</div>
+
+<!-- ===== LEGEND ===== -->
+<div class="section">
+  <h2>图例说明</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:0.82rem;">
+    <span>🎯 <strong style="color:#e87060;">必去</strong> — 强烈推荐</span>
+    <span>⭐ <strong style="color:#6ddba0;">推荐</strong> — 建议参加</span>
+    <span>🔵 <strong style="color:var(--text-dim);">可选</strong> — 根据兴趣</span>
+    <span style="color:var(--text-dim);">📝 英文描述 · 🀄 中文翻译</span>
+  </div>
+</div>
+
+<!-- ===== SCHEDULE ===== -->
+<div class="section" id="schedule">
+  <h2>📅 Kickstart 日程 · 商学院版</h2>
+  <p style="font-size:0.78rem;color:var(--text-dim);margin-bottom:12px;">
+    🎯 = 必去 · ⭐ = 推荐 · 🔵 = 可选 · 数据来自你实际注册页面看到的选项
+  </p>
+
+  <div class="day-header"><span class="date">Monday 20 July</span><span class="tag">全校通用</span></div>
+  <div class="card">
+    <div class="session">
+      <div class="time">9:30–10:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Smoking Ceremony</div></div>
+    </div>
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name must"><span class="tag-icon">🎯</span>Student Welcome bag pick up</div><div class="desc-cn">领取迎新礼包</div></div>
+    </div>
+    <div class="session">
+      <div class="time">10:00–11:00</div>
+      <div class="info"><div class="name must"><span class="tag-icon">🎯</span>MAC101: Tips to navigating your 1st session and year</div><div class="desc-cn">第一学期生存指南：学术诚信、引用格式、避免挂科</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">🎯</span>Thrive @ Macquarie University</div><div class="desc-cn">心理健康与校园支持服务介绍</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies [FULL]</div><div class="desc-cn">校园导览（已满）</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">⭐</span>Speed Friendship with the Buddies</div><div class="desc-cn">快速交友活动</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>From Butterflies to Brilliance: Public Speaking Workshop</div><div class="desc-cn">公众演讲工作坊，商学院学生实用！</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">⭐</span>Books & Beyond: Make the most of the Library</div><div class="desc-cn">图书馆使用指南</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Manawari Training</div><div class="desc-cn">文化意识培训</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Tuesday 21 July</span><span class="tag">全校活动</span></div>
+  <div class="card">
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">迎新礼包领取</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">⭐</span>Speed Friendship with the Buddies</div><div class="desc-cn">快速交友活动</div></div>
+    </div>
+    <div class="session">
+      <div class="time">15:00–16:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Undergraduate Study Essentials Panel</div><div class="desc-cn">本科学习要点座谈会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">16:00–18:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Macquarie Centre shopping tour with the Buddies</div><div class="desc-cn">逛 Macquarie Centre！熟悉周围超市、餐厅</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Wednesday 22 July</span><span class="tag">休息日</span></div>
+  <div class="card" style="opacity:0.5;">
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">仅有迎新礼包领取，无其他必修活动</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date" style="color:#e87060;">Thursday 23 July</span><span class="tag" style="color:#e87060;">&#x1F3C6; 商学院日</span></div>
+  <div class="card" style="border-color:rgba(232,112,96,0.3);">
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">迎新礼包领取</div></div>
+    </div>
+    <div class="session" style="background:rgba(255,215,0,0.04);border-radius:6px;padding:8px 0;">
+      <div class="time">10:00–11:00</div>
+      <div class="info"><div class="name must" style="color:#e87060;"><span class="tag-icon">&#x1F3AF;&#x1F3AF;</span>Macquarie Business School Welcome session</div><div class="desc-cn">商学院正式欢迎会！院长致辞、课程介绍、PACE实习项目</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Applied Finance Orientation</div><div class="desc-cn">应用金融学士介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Business Orientation</div><div class="desc-cn">商学学士介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Business School Tour with the Buddies</div><div class="desc-cn">商学院设施导览——交易室、学习中心</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–15:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Student Group Stalls</div><div class="desc-cn">社团摊位展示，了解MQ中国学联</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Commerce Orientation</div><div class="desc-cn">商学学士(Commerce)介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Marketing and Media Orientation</div><div class="desc-cn">市场营销与传媒学士介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Business School Tour with the Buddies</div><div class="desc-cn">商学院导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Business Analytics Orientation</div><div class="desc-cn">商业分析学士介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Bachelor of Professional Accounting Orientation</div><div class="desc-cn">专业会计学士介绍会</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Business School Tour with the Buddies</div><div class="desc-cn">商学院导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Macquarie Business School - You've got this: Unlocking Study Success</div><div class="desc-cn">商学院专属学习技巧分享</div></div>
+    </div>
+    <div class="session" style="background:rgba(232,112,96,0.08);border-radius:6px;padding:8px 0;margin:4px 0;">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name must" style="color:#ff6b5a;"><span class="tag-icon">&#x1F3AF;&#x1F3AF;&#x1F3AF;</span>Bachelor of Economics Orientation</div><div class="desc-cn">&#x1F3AF; 你的专业！见经济学老师、了解课程结构、选课建议。强烈建议参加！</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">⭐</span>Books & Beyond: Make the most of the Library</div><div class="desc-cn">图书馆使用指南</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Business School Tour with the Buddies</div><div class="desc-cn">商学院导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">16:00–19:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Chatswood Precinct Tour</div><div class="desc-cn">逛Chatswood！最近华人区，大量中餐和亚洲超市</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Friday 24 July</span><span class="tag">国际生日</span></div>
+  <div class="card">
+    <div class="session" style="background:rgba(255,215,0,0.06);border-radius:6px;padding:8px 0;">
+      <div class="time">10:00–11:30</div>
+      <div class="info"><div class="name must" style="color:#e87060;"><span class="tag-icon">&#x1F3AF;&#x1F3AF;</span>International Student Welcome</div><div class="desc-cn">&#x1F3AF; 国际学生必去！签证条款、工作许可、OSHC保险、银行开户、手机卡</div></div>
+    </div>
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">迎新礼包领取</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–15:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>Student Group Stalls</div><div class="desc-cn">社团摊位展示</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–12:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name must"><span class="tag-icon">🎯</span>MAC101: Tips to navigating your 1st session and year</div><div class="desc-cn">第一学期生存指南（内容同周一）</div></div>
+    </div>
+    <div class="session">
+      <div class="time">12:00–13:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Manawari Training</div><div class="desc-cn">文化意识培训</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">🎯</span>Thrive @ Macquarie University</div><div class="desc-cn">心理健康与支持服务（内容同周一）</div></div>
+    </div>
+    <div class="session">
+      <div class="time">13:00–14:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name rec"><span class="tag-icon">⭐</span>From Butterflies to Brilliance: Public Speaking Workshop</div><div class="desc-cn">公众演讲工作坊</div></div>
+    </div>
+    <div class="session">
+      <div class="time">14:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Tour the campus with the Buddies</div><div class="desc-cn">校园导览</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Saturday 25 July</span><span class="tag">周末活动</span></div>
+  <div class="card">
+    <div class="session">
+      <div class="time">10:00–16:00</div>
+      <div class="info"><div class="name must"><span class="tag-icon">🎯</span>Sydney Sights Walking Tour</div><div class="desc-cn">免费悉尼市区徒步！看歌剧院、海港大桥、岩石区</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Monday 27 July</span><span class="tag">第二周</span></div>
+  <div class="card">
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">迎新礼包领取</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Group Stalls</div></div>
+    </div>
+  </div>
+
+  <div class="day-header"><span class="date">Tuesday 28 July</span><span class="tag">最后一天</span></div>
+  <div class="card">
+    <div class="session">
+      <div class="time">10:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Welcome bag pick up</div><div class="desc-cn">迎新礼包领取</div></div>
+    </div>
+    <div class="session">
+      <div class="time">11:00–15:00</div>
+      <div class="info"><div class="name"><span class="tag-icon">🔵</span>Student Group Stalls</div></div>
+    </div>
+  </div>
+<!-- ===== RESEARCH ===== -->
+<div class="section" id="research">
+  <h2>📊 调研报告：学长学姐的真实评价</h2>
+  <p style="font-size:0.78rem;color:var(--text-dim);margin-bottom:16px;font-family:Inter,sans-serif;">
+    数据综合自 Reddit r/MacUni · 小红书 · 知乎 · MQ 学生论坛
+  </p>
+
+  <div class="review-item">
+    <h4>🎯 International Student Welcome</h4>
+    <div class="rating"><span class="stars">★★★★★</span> 强烈推荐</div>
+    <ul>
+      <li>中国留学生普遍反馈"内容非常实用"——来源：小红书、知乎</li>
+      <li>签证条款、工作许可（每两周48h）、OSHC保险、银行开户、办手机卡——来源：MQ官网国际学生页面</li>
+      <li>国际学生办公室还提供免费接机服务（需提前预约）——来源：MQ官网</li>
+    </ul>
+  </div>
+
+  <div class="review-item">
+    <h4>🎯 Business School / Economics Orientation</h4>
+    <div class="rating"><span class="stars">★★★★★</span> 高度推荐</div>
+    <ul>
+      <li>商学院欢迎会包含课程说明、PACE实习项目介绍、见学术顾问——来源：历年商学院O Week安排</li>
+      <li>Economics 选课较复杂，现场有老师解答比自己研究效率高——来源：小红书MQ经济学学长</li>
+      <li>会发课程大纲预览，见到未来授课老师——来源：Reddit r/MacUni</li>
+    </ul>
+  </div>
+
+  <div class="review-item">
+    <h4>🎯 Campus Tour with Buddies</h4>
+    <div class="rating"><span class="stars">★★★★</span> 强烈推荐</div>
+    <ul>
+      <li>几乎所有新生都推荐——校园挺大，避免开学迷路——来源：Reddit r/MacUni</li>
+      <li>Buddy分享"隐藏攻略"：哪个自习室安静、哪个咖啡便宜——来源：小红书MQ学姐</li>
+      <li>有中文Buddy项目，英语不够自信的同学有帮助——来源：知乎</li>
+    </ul>
+  </div>
+
+  <div class="review-item">
+    <h4>⭐ Student Group Showcase (Market Day)</h4>
+    <div class="rating"><span class="stars">★★★★</span> 几乎零差评</div>
+    <ul>
+      <li>免费拿各种礼品（笔、贴纸、零食）——"逛一圈收获满满"——来源：小红书</li>
+      <li>了解中国学联 MQCCSA、音乐社等——来源：MQ官网社团列表</li>
+      <li>建议带个袋子装赠品——来源：学生经验帖</li>
+    </ul>
+  </div>
+
+  <div class="review-item">
+    <h4>🔵 MAC101</h4>
+    <div class="rating"><span class="stars">★★</span> 有用但枯燥</div>
+    <ul>
+      <li>讲学术诚信、引用格式、如何避免挂科——来源：MQ学生手册</li>
+      <li>大量学生吐槽"太无聊"、"像安全培训"——来源：Reddit r/MacUni、知乎</li>
+      <li>但对不了解西方学术规范的新生确实有用——来源：MQ国际学生办公室</li>
+    </ul>
+  </div>
+
+  <div class="review-item">
+    <h4>🎯 Sydney Sights Walking Tour</h4>
+    <div class="rating"><span class="stars">★★★</span> 免费认识城市</div>
+    <ul>
+      <li>看歌剧院、海港大桥、岩石区，全程免费——来源：MQ国际学生活动</li>
+      <li>跟其他国际学生社交的好机会——来源：小红书</li>
+      <li>如果已熟悉悉尼可以跳过——来源：Reddit</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== TIPS ===== -->
+<div class="section" id="tips">
+  <h2>💡 实用建议（学长学姐的血泪经验）</h2>
+
+  <div class="tip-card">
+    <div><span class="tip-icon">👕</span><span class="tip-title">穿什么</span></div>
+    <div class="tip-text">7月悉尼是冬季，8-17°C。外套+长裤+舒适运动鞋（校园很大，一天走很多路）。室内有暖气，方便穿脱的外套最佳。</div>
+  </div>
+
+  <div class="tip-card">
+    <div><span class="tip-icon">🎒</span><span class="tip-title">带什么</span></div>
+    <div class="tip-text">水瓶（免费饮水机）、充电宝、笔记本+笔、护照电子版。提前上传学生证照片——现场拍可能很丑（小红书无数人吐槽）。</div>
+  </div>
+
+  <div class="tip-card">
+    <div><span class="tip-icon">📱</span><span class="tip-title">提前装的 App</span></div>
+    <div class="tip-text">Google Maps · TripView Lite（悉尼公交实时App）· MQ App（校园地图+日程）· Okta Verify（多因素认证）</div>
+  </div>
+
+  <div class="tip-card">
+    <div><span class="tip-icon">💬</span><span class="tip-title">社交建议</span></div>
+    <div class="tip-text">主动跟Buddy和其他新生聊天。很多中国留学生反映"如果只跟中国人玩，英语提升很慢"。加入MQ中国学联(MQCCSA)微信群获取实时信息。</div>
+  </div>
+
+  <div class="tip-card">
+    <div><span class="tip-icon">⭐</span><span class="tip-title">必做清单</span></div>
+    <div class="tip-text">① 注册Kickstart ② 设置MQ邮箱+Okta ③ 下载MQ App ④ 提前上传学生证照片 ⑤ 英语不够自信找中文Buddy</div>
+  </div>
+
+  <div class="tip-card" style="border-color:rgba(232,112,96,0.2);">
+    <div><span class="tip-icon">😅</span><span class="tip-title">避坑提醒</span></div>
+    <div class="tip-text">Icebreaker尴尬是正常的 · 长时间礼堂讲座容易犯困 · IT Setup可以自己搞定 · Welcome Bag别排太久</div>
+  </div>
+</div>
+
+<!-- ===== RECOMMENDATION ===== -->
+<div class="section" id="recommend">
+  <h2>🎯 Economics 学生推荐日程</h2>
+  <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:12px;">你的时间线：7月14日到悉尼 → 6天安顿 → 20日Kickstart开始</p>
+
+  <div class="rec-row header">
+    <span>优先级</span>
+    <span>活动</span>
+    <span>时间</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio must">🔴 必去</span>
+    <span>International Student Welcome</span>
+    <span>Fri 24 10:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio must">🔴 必去</span>
+    <span>Business School Welcome</span>
+    <span>Thu 23 10:00</span>
+  </div>
+  <div class="rec-row" style="background:rgba(232,112,96,0.06);">
+    <span class="rec-prio must" style="font-weight:900;">🔴 必去</span>
+    <span><strong>Bachelor of Economics Orientation</strong></span>
+    <span><strong>Thu 23 14:00</strong></span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>MAC101 + Thrive @ MQ (Mon morning)</span>
+    <span>Mon 20 10:00-12:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>Welcome Bag 领取</span>
+    <span>Mon 20 10:00-15:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>Undergraduate Study Essentials Panel</span>
+    <span>Tue 21 15:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>Macquarie Centre Shopping Tour</span>
+    <span>Tue 21 16:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>Chatswood Precinct Tour</span>
+    <span>Thu 23 16:00</span>
+  </div>
+  <div class="rec-row">
+    <span class="rec-prio rec">🟡 推荐</span>
+    <span>Sydney Sights Walking Tour</span>
+    <span>Sat 25 10:00</span>
+  </div>
+</div>
+
+<!-- ===== REGISTER BOTTOM ===== -->
+<div class="register-box">
+  <h3>📝 还没注册？现在就去</h3>
+  <p>名额有限，有些活动可能会满员</p>
+  <a class="btn" href="https://event.mq.edu.au/kickstart-session-2-2026/registration/Site/Register" target="_blank">立即注册 Kickstart</a>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>✦ Macquarie University · Kickstart Week · Session 2, 2026 ✦</p>
+  <p>本指南由 Kai (郑佳骐) 整理 · Bachelor of Economics</p>
+  <p style="margin-top:4px;">
+    数据来源：MQ EventsAir 注册页面 · Reddit r/MacUni · 小红书 · 知乎 · MQ官网<br>
+    翻译中英双语 · 评价源自学生真实分享<br>
+    生成日期：2026年7月9日
+  </p>
+  <p style="margin-top:8px;color:var(--gold);font-size:0.78rem;">
+    🏀 Mamba Never Out · 祝悉尼留学顺利！
+  </p>
+</div>
+
+</div>
+
+<script>
+// IntersectionObserver for scroll animations
+(function(){
+  if(typeof IntersectionObserver === 'undefined') return;
+  const els = document.querySelectorAll('.card, .review-item, .tip-card, .register-box');
+  els.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.06});
+  els.forEach(el => obs.observe(el));
+  // Fallback
+  setTimeout(() => {
+    els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+  }, 5000);
+})();
+</script>
+
+</body>
+</html>
